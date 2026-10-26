@@ -76,5 +76,13 @@ function createFilterButton(label, onClick) {
 }
 
 init();
-createFilters(allWorks);
-createFilters(objects);
+async function init() {
+  try {
+    allWorks = await getWorks();
+    displayWorks(allWorks);
+    createFilters(allWorks);   // runs only after the data has arrived
+  } catch (error) {
+    gallery.textContent = "Unable to load the projects.";
+    console.error(error);
+  }
+}
